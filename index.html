@@ -15,11 +15,8 @@
     <br />
     <script>
         const vConsole = new VConsole();
-        console.log(navigator.mediaDevices)
         navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: "user"
-            },
+            video: true,
             audio: false
         })
             .then(function (stream) {
