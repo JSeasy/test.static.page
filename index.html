@@ -21,6 +21,7 @@
     <br />
     <script>
       const vConsole = new VConsole();
+      var video = document.querySelector("video");
 
       navigator.mediaDevices
         .getUserMedia({
@@ -28,7 +29,6 @@
           audio: false,
         })
         .then(function (stream) {
-          var video = document.querySelector("video");
           video.srcObject = stream;
           video.onloadedmetadata = function (e) {
             // video.play();
