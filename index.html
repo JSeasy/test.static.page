@@ -1,43 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>拍照2</title>
     <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <br />
-    <video id="v" style="width: 640px;height: 480px;"></video>
-    <canvas id="canvas" style="display:none;"></canvas>
+    <video id="v" style="width: 640px; height: 480px"></video>
+    <canvas id="canvas" style="display: none"></canvas>
     <span id="text">1</span>
     <br />
     <script>
-        const vConsole = new VConsole();
-        console.log(navigator.mediaDevices)
-        navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: "user"
-            },
-            audio: false
+      const vConsole = new VConsole();
+
+      navigator.mediaDevices
+        .getUserMedia({
+          video: true,
+          audio: false,
         })
-            .then(function (stream) {
-                var video = document.querySelector('video');
-                video.srcObject = stream;
-                video.onloadedmetadata = function (e) {
-                    video.play();
-                };
-                /* 使用这个 stream stream */
-                console.log(66666)
-            })
-            .catch(function (err) {
-                console.log(456)
+        .then(function (stream) {
+          var video = document.querySelector("video");
+          video.srcObject = stream;
+          video.onloadedmetadata = function (e) {
+            video.play();
+          };
+          /* 使用这个 stream stream */
+        })
+        .catch(function (err) {
+          console.log(456);
 
-                document.getElementById('text').innerHTML = err
-                /* 处理 error */
-            });
+          document.getElementById("text").innerHTML = err;
+          /* 处理 error */
+        });
     </script>
-</body>
-
+  </body>
 </html>
