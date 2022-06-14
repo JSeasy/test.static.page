@@ -5,24 +5,26 @@
     <title>拍照2</title>
     <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
     <style>
-      video {
-        border-radius: 50%;
+      .video-wrap {
+        border-radius: 500px;
+        overflow: hidden;
       }
     </style>
   </head>
 
   <body>
     <br />
-    <video
-      id="v"
-      style="width: 640px; height: 480px"
-      playsinline
-      autoplay
-      x5-video-player-type="h5"
-      style="object-fit: fill"
-    ></video>
+    <div class="video-wrap">
+      <video
+        id="v"
+        style="width: 640px; height: 480px"
+        playsinline
+        autoplay
+      ></video>
+    </div>
+
     <canvas id="canvas" style="display: none"></canvas>
-    <span id="text">2</span>
+    <span id="text">3</span>
     <br />
     <script>
       const vConsole = new VConsole();
@@ -44,10 +46,9 @@
           /* 使用这个 stream stream */
         })
         .catch(function (err) {
-          console.log(456);
-
-          document.getElementById("text").innerHTML = err;
-          /* 处理 error */
+          //           console.log(456);
+          //           document.getElementById("text").innerHTML = err;
+          //           /* 处理 error */
         });
     </script>
   </body>
