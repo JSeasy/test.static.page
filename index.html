@@ -5,20 +5,23 @@
     <title>拍照2</title>
     <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
     <style>
-      video{
-      border-radius:500px;
+      .video-wrap {
+        border-radius: 500px;
+        overflow: hidden;
       }
     </style>
   </head>
 
   <body>
     <br />
-    <video
-      id="v"
-      style="width: 640px; height: 480px"
-      playsinline
-      autoplay
-    ></video>
+   <div class="video-wrap">
+      <video
+        id="v"
+        style="width: 640px; height: 480px"
+        playsinline
+        autoplay
+      ></video>
+    </div>
     <canvas id="canvas" style="display: none"></canvas>
     <span id="text">3</span>
     <br />
