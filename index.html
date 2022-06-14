@@ -6,10 +6,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
     <style>
       .video-wrap {
-        border-radius: 50px;
-        overflow: hidden;
-        height:480px;
-        width:480px;
+        border-radius: 508px;
+     
       }
     </style>
   </head>
@@ -33,7 +31,9 @@
 
       navigator.mediaDevices
         .getUserMedia({
-          video: true,
+          video: {
+          height:480,
+          width:480},
           audio: false,
         })
         .then(function (stream) {
