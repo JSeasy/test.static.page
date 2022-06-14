@@ -25,7 +25,10 @@
 
       navigator.mediaDevices
         .getUserMedia({
-          video: true,
+          video: {
+            width: 300,
+            height: 300,
+          },
           audio: false,
         })
         .then(function (stream) {
