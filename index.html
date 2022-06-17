@@ -90,17 +90,18 @@
                 })
                 .then(function (stream) {
                     video.srcObject = stream;
-                    const record = new MediaRecorder(stream);
-                    console.log(record)
-                    console.log(123)
-                    record.mimeType = VIDEO_FORMAT;
-                    record.ondataavailable = function (data) {
-                        console.log("# 产生录制数据...");
-                        alert('商城')
-                        console.log(data);
-                        console.log("# ondataavailable, size = " + parseInt(data.size / 1024) + "KB");
-                        chunk.push(data);
-                    };
+                    // console.log(stream)
+                    // const record = new MediaRecorder(stream);
+                    // console.log(record)
+                    // console.log(123)
+                    // record.mimeType = VIDEO_FORMAT;
+                    // record.ondataavailable = function (data) {
+                    //     console.log("# 产生录制数据...");
+                    //     alert('商城')
+                    //     console.log(data);
+                    //     console.log("# ondataavailable, size = " + parseInt(data.size / 1024) + "KB");
+                    //     chunk.push(data);
+                    // };
                 })
                 .catch(function (err) {
                     alert(err)
