@@ -90,7 +90,6 @@
                     video.srcObject = stream;
                     const record = new MediaRecorder(stream);
                     record.mimeType = VIDEO_FORMAT;
-
                     record.ondataavailable = function (data) {
                         console.log("# 产生录制数据...");
                         alert('商城')
