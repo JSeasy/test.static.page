@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8" />
     <meta name="viewport"
         content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -52,8 +53,9 @@
         <img src="https://image.s2bdiy.com/1200/mkFeiGp2HX1655438035835_1200.png" class="img">
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
-
+        new Vconsole()
         const setVideoCanvasHeight = (video) => {
             const { width } = video.getBoundingClientRect()
             video.style.height = width + 'px'
