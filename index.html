@@ -48,7 +48,7 @@
 
     <div class="camera-wrap">
         <!-- autoplay playsinline -->
-        <video class="video" muted autoplay></video>
+        <video class="video" autoplay playsinline></video>
         <!-- <canvas class="canvas"></canvas> -->
         <img src="https://image.s2bdiy.com/1200/mkFeiGp2HX1655438035835_1200.png" class="img">
 
@@ -89,20 +89,19 @@
                     audio: false,
                 })
                 .then(function (stream) {
-                    console.log(stream)
                     video.srcObject = stream;
-                    // console.log(stream)
-                    // const record = new MediaRecorder(stream);
-                    // console.log(record)
-                    // console.log(123)
-                    // record.mimeType = VIDEO_FORMAT;
-                    // record.ondataavailable = function (data) {
-                    //     console.log("# 产生录制数据...");
-                    //     alert('商城')
-                    //     console.log(data);
-                    //     console.log("# ondataavailable, size = " + parseInt(data.size / 1024) + "KB");
-                    //     chunk.push(data);
-                    // };
+                    console.log(stream)
+                    const record = new MediaRecorder(stream);
+                    console.log(record)
+                    console.log(123)
+                    record.mimeType = VIDEO_FORMAT;
+                    record.ondataavailable = function (data) {
+                        console.log("# 产生录制数据...");
+                        alert('商城')
+                        console.log(data);
+                        console.log("# ondataavailable, size = " + parseInt(data.size / 1024) + "KB");
+                        chunk.push(data);
+                    };
                 })
                 .catch(function (err) {
                     alert(err)
