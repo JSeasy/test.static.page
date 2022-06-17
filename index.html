@@ -3,48 +3,79 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>拍照2</title>
 
     <style>
-        .video-wrap {
-            border-radius: 508px;
-            background: red;
-            width: 480px;
-            overflow: hidden;
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
 
+        .camera-wrap {
+            width: 50%;
+            margin: 0 auto;
+            margin-top: 150px;
+            position: relative;
+
+        }
+
+        .video {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .img {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
         }
     </style>
 </head>
 
 <body>
-    <br />
-    <!-- <div class="video-wrap"> -->
-    <video id="v" style="width: 880px; height: 880px" autoplay playsinline></video>
-    <!-- </div> -->
-    <canvas id="canvas" style="display: none"></canvas>
-    <span id="text">2222</span>
-    <br />
+
+    <div class="camera-wrap">
+        <video class="video" autoplay playsinline></video>
+        <!-- <canvas id="canvas" style="display: none"></canvas> -->
+        <!-- <img src="https://image.s2bdiy.com/1200/eEzkC5zANR1655434835109_1200.png" class="img"> -->
+
+    </div>
     <script>
-        var video = document.querySelector("video");
+        const setVideoHeight = () => {
+            const video = document.querySelector("video");
+            const { width } = video.getBoundingClientRect()
+            video.style.height = width + 'px'
+        }
+        window.onload = () => {
 
-        navigator.mediaDevices
-            .getUserMedia({
-                video: true,
-                audio: false,
-            })
-            .then(function (stream) {
-                video.srcObject = stream;
-                video.onloadedmetadata = function (e) {
-                    // video.play();
-                };
-                /* 使用这个 stream stream */
-            })
-            .catch(function (err) {
-                //           console.log(456);
+            setVideoHeight()
+            navigator.mediaDevices
+                .getUserMedia({
+                    video: true,
+                    audio: false,
+                })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                    video.onloadedmetadata = function (e) {
+                        // video.play();
+                    };
+                    /* 使用这个 stream stream */
+                })
+                .catch(function (err) {
+                    //           console.log(456);
 
-                //           document.getElementById("text").innerHTML = err;
-                //           /* 处理 error */
-            });
+                    //           document.getElementById("text").innerHTML = err;
+                    //           /* 处理 error */
+                });
+        }
+
+
     </script>
 </body>
 
