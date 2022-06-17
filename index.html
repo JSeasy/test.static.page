@@ -47,16 +47,15 @@
 <body>
 
     <div class="camera-wrap">
-        测
         <!-- autoplay playsinline -->
         <video class="video" muted autoplay></video>
         <!-- <canvas class="canvas"></canvas> -->
         <img src="https://image.s2bdiy.com/1200/mkFeiGp2HX1655438035835_1200.png" class="img">
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
-        new Vconsole()
+        var vConsole = new window.VConsole();
         const setVideoCanvasHeight = (video) => {
             const { width } = video.getBoundingClientRect()
             video.style.height = width + 'px'
