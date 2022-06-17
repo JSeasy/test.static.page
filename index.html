@@ -41,6 +41,11 @@
             width: 100%;
             display: none;
         } */
+        .tip {
+            font-size: 16px;
+            color: black;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -53,13 +58,12 @@
         <img src="https://image.s2bdiy.com/1200/mkFeiGp2HX1655438035835_1200.png" class="img">
 
     </div>
+    <div class="tip">
+
+    </div>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
         var vConsole = new window.VConsole();
-        const setVideoCanvasHeight = (video) => {
-            const { width } = video.getBoundingClientRect()
-            video.style.height = width + 'px'
-        }
 
         // function playCanvas(srcvideo, ctx, width) {
         //     //console.log("# playCanvas... ");
@@ -69,55 +73,53 @@
         //     })
         // }
 
-
         window.onload = async () => {
             const chunk = []
             const VIDEO_FORMAT = 'video/webm';
             const video = document.querySelector("video");
-            // const canvas = document.querySelector('canvas')
+            const tip = document.querySelector('.tip')
+            const tipList = ['眨眨眼', '张张嘴', '左摇头', '右摇头', '抬抬头']
+            const setVideoCanvasHeight = (video) => {
+                const { width } = video.getBoundingClientRect()
+                video.style.height = width + 'px'
+            }
+            const getRandomNum = () => {
+                return Math.floor(Math.random() * tipList.length)
+            }
+
+            const setRandomNum = () => {
+                const randomNum = getRandomNum()
+                tip.innerHTML = tipList[randomNum]
+            }
+            setRandomNum()
             setVideoCanvasHeight(video)
-
-            // playCanvas(video, canvas.getContext('2d'), width)
-            // const videoStream = canvas.captureStream(60);
-
-
-
-            // video.play()
-
-            const stream = await navigator.mediaDevices
+            navigator.mediaDevices
                 .getUserMedia({
                     video: true,
                     audio: false,
+                }).then(stream => {
+                    video.srcObject = stream
+                    const record = new MediaRecorder(stream)
+                    record.start()
+                    record.ondataavailable = function (blobEvent) {
+                        console.log('结束录制')
+                        console.log(blobEvent.data)
+                    }
+
+                    setTimeout(() => {
+                        record.stop()
+                    }, 10000)
+
+                    setInterval(() => {
+                        setRandomNum()
+                    }, 2000)
                 })
 
-            video.srcObject = stream
-            const record = new MediaRecorder(stream)
-            record.start()
-            record.ondataavailable = function (blobEvent) {
-                console.log('结束录制')
-                console.log(blobEvent.data)
-            }
-            setTimeout(() => {
-                record.stop()
-            }, 10000)
-            // .then(function (stream) {
-            //     video.srcObject = stream;
-            //     console.log(stream)
-            //     const record = new MediaRecorder(stream);
-            //     console.log(record)
-            //     console.log(123)
-            //     record.mimeType = VIDEO_FORMAT;
-            //     record.ondataavailable = function (data) {
-            //         console.log("# 产生录制数据...");
-            //         alert('商城')
-            //         console.log(data);
-            //         console.log("# ondataavailable, size = " + parseInt(data.size / 1024) + "KB");
-            //         chunk.push(data);
-            //     };
-            // })
-            // .catch(function (err) {
-            //     alert(err)
-            // });
+
+
+
+
+
         }
 
 
