@@ -89,6 +89,7 @@
                     audio: false,
                 })
                 .then(function (stream) {
+                    console.log(stream)
                     video.srcObject = stream;
                     // console.log(stream)
                     // const record = new MediaRecorder(stream);
