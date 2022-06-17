@@ -91,9 +91,12 @@
                 })
             stream.then((stream) => {
                 video.srcObject = stream
+                console.log('开始播放')
+
             })
             const record = new MediaRecorder(stream)
             record.ondataavailable = function (data) {
+                console.log('开始录制')
                 console.log(data)
             }
             // .then(function (stream) {
