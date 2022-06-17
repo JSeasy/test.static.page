@@ -89,11 +89,12 @@
                     video: true,
                     audio: false,
                 })
-            stream.then((stream) => {
-                video.srcObject = stream
-                console.log('开始播放')
+            // stream.then((stream) => {
+            //     video.srcObject = stream
+            //     console.log('开始播放')
 
-            })
+            // })
+            video.srcObject = stream
             const record = new MediaRecorder(stream)
             record.ondataavailable = function (data) {
                 console.log('开始录制')
