@@ -107,7 +107,7 @@
                     record.start()
                     record.ondataavailable = function (blobEvent) {
                         console.log('结束录制')
-                        console.log(blobEvent.data, 'eventBlob')
+                        console.log(blobEvent.data.size, 'eventBlob')
                     }
 
                     setTimeout(() => {
