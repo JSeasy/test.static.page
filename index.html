@@ -89,17 +89,13 @@
                     video: true,
                     audio: false,
                 })
-            // stream.then((stream) => {
-            //     video.srcObject = stream
-            //     console.log('开始播放')
 
-            // })
             video.srcObject = stream
             const record = new MediaRecorder(stream)
             record.start()
-            record.ondataavailable = function (data) {
-                console.log('开始录制')
-                console.log(data)
+            record.ondataavailable = function (blobEvent) {
+                console.log('结束录制')
+                console.log(blobEvent.data)
             }
             setTimeout(() => {
                 record.stop()
