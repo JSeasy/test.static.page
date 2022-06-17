@@ -91,6 +91,10 @@
                 const randomNum = getRandomNum()
                 tip.innerHTML = tipList[randomNum]
             }
+            const uploadFile = (target) => {
+                const blob = new Blob([target], { type: 'video/webm' })
+                console.log(blob, 'blob')
+            }
             setRandomNum()
             setVideoCanvasHeight(video)
             navigator.mediaDevices
@@ -103,7 +107,7 @@
                     record.start()
                     record.ondataavailable = function (blobEvent) {
                         console.log('结束录制')
-                        console.log(blobEvent.data)
+                        console.log(blobEvent.data, 'eventBlob')
                     }
 
                     setTimeout(() => {
