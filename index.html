@@ -35,27 +35,52 @@
             left: 0;
             top: 0;
         }
+
+        /* .canvas {
+            width: 100%;
+            display: none;
+        } */
     </style>
 </head>
 
 <body>
 
     <div class="camera-wrap">
-        <video class="video" autoplay playsinline></video>
-        <!-- <canvas id="canvas" style="display: none"></canvas> -->
+        <!-- autoplay playsinline -->
+        <video class="video" muted autoplay></video>
+        <!-- <canvas class="canvas"></canvas> -->
         <img src="https://image.s2bdiy.com/1200/mkFeiGp2HX1655438035835_1200.png" class="img">
 
     </div>
     <script>
-        const setVideoHeight = () => {
-            const video = document.querySelector("video");
+
+        const setVideoCanvasHeight = (video) => {
             const { width } = video.getBoundingClientRect()
             video.style.height = width + 'px'
         }
-        window.onload = () => {
-            const video = document.querySelector("video");
 
-            setVideoHeight()
+        function playCanvas(srcvideo, ctx, width) {
+            //console.log("# playCanvas... ");
+            ctx.drawImage(srcvideo, 0, 0, width, width)
+            playId = requestAnimationFrame(() => {
+                playCanvas(srcvideo, ctx, width)
+            })
+        }
+
+
+        window.onload = () => {
+            const chunk = []
+            const VIDEO_FORMAT = 'video/webm';
+            const video = document.querySelector("video");
+            // const canvas = document.querySelector('canvas')
+            setVideoCanvasHeight(video)
+
+            // playCanvas(video, canvas.getContext('2d'), width)
+            // const videoStream = canvas.captureStream(60);
+
+
+
+            // video.play()
             navigator.mediaDevices
                 .getUserMedia({
                     video: true,
@@ -63,16 +88,19 @@
                 })
                 .then(function (stream) {
                     video.srcObject = stream;
-                    video.onloadedmetadata = function (e) {
-                        // video.play();
+                    const record = new MediaRecorder(stream);
+                    record.mimeType = VIDEO_FORMAT;
+
+                    record.ondataavailable = function (data) {
+                        console.log("# 产生录制数据...");
+                        alert('商城')
+                        console.log(data);
+                        console.log("# ondataavailable, size = " + parseInt(data.size / 1024) + "KB");
+                        chunk.push(data);
                     };
-                    /* 使用这个 stream stream */
                 })
                 .catch(function (err) {
-                    //           console.log(456);
-
-                    //           document.getElementById("text").innerHTML = err;
-                    //           /* 处理 error */
+                    alert(err)
                 });
         }
 
