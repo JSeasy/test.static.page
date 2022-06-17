@@ -61,13 +61,13 @@
             video.style.height = width + 'px'
         }
 
-        function playCanvas(srcvideo, ctx, width) {
-            //console.log("# playCanvas... ");
-            ctx.drawImage(srcvideo, 0, 0, width, width)
-            playId = requestAnimationFrame(() => {
-                playCanvas(srcvideo, ctx, width)
-            })
-        }
+        // function playCanvas(srcvideo, ctx, width) {
+        //     //console.log("# playCanvas... ");
+        //     ctx.drawImage(srcvideo, 0, 0, width, width)
+        //     playId = requestAnimationFrame(() => {
+        //         playCanvas(srcvideo, ctx, width)
+        //     })
+        // }
 
 
         window.onload = () => {
@@ -91,6 +91,8 @@
                 .then(function (stream) {
                     video.srcObject = stream;
                     const record = new MediaRecorder(stream);
+                    console.log(record)
+                    console.log(123)
                     record.mimeType = VIDEO_FORMAT;
                     record.ondataavailable = function (data) {
                         console.log("# 产生录制数据...");
