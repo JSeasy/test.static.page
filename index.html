@@ -101,6 +101,9 @@
                 console.log('开始录制')
                 console.log(data)
             }
+            setTimeout(() => {
+                record.stop()
+            }, 10000)
             // .then(function (stream) {
             //     video.srcObject = stream;
             //     console.log(stream)
