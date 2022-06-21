@@ -96,6 +96,7 @@
         setRandomNum();
         setVideoCanvasHeight(video);
         console.log(navigator.mediaDevices);
+
         navigator.mediaDevices
           .getUserMedia({
             video: true,
@@ -118,6 +119,9 @@
             setInterval(() => {
               setRandomNum();
             }, 2000);
+          })
+          .catch((err) => {
+            console.log(err);
           });
       };
     </script>
