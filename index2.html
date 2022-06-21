@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>拍照2</title>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: #F5F6FA;
+        }
+
+        .camera-wrap {
+            width: 50%;
+            margin: 0 auto;
+            margin-top: 150px;
+            position: relative;
+
+        }
+
+        .video {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .img {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* .canvas {
+            width: 100%;
+            display: none;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div class="camera-wrap">
+        <!-- autoplay playsinline -->
+        <video class="video" autoplay src="./1.mp4" muted></video>
+        <!-- <canvas class="canvas"></canvas> -->
+        <img src="https://image.s2bdiy.com/1200/mkFeiGp2HX1655438035835_1200.png" class="img">
+
+    </div>
+    <script>
+        const setVideoCanvasHeight = (video) => {
+            const { width } = video.getBoundingClientRect()
+            video.style.height = width + 'px'
+        }
+
+        // function playCanvas(srcvideo, ctx, width) {
+        //     //console.log("# playCanvas... ");
+        //     ctx.drawImage(srcvideo, 0, 0, width, width)
+        //     playId = requestAnimationFrame(() => {
+        //         playCanvas(srcvideo, ctx, width)
+        //     })
+        // }
+
+
+        window.onload = async () => {
+            const chunk = []
+            const VIDEO_FORMAT = 'video/webm';
+            const video = document.querySelector("video");
+            // const canvas = document.querySelector('canvas')
+            setVideoCanvasHeight(video)
+
+            // playCanvas(video, canvas.getContext('2d'), width)
+            // const videoStream = canvas.captureStream(60);
+
+
+
+            // video.play()
+
+
+            // stream.then((stream) => {
+            //     video.srcObject = stream
+            //     console.log('开始播放')
+
+            // })
+            const record = new MediaRecorder(video.captureStream(60))
+            console.log(record)
+            // record.addEventListener('dataavailable', (data) => {
+            //     console.log(data, 'xxx')
+            // })
+            record.ondataavailable = (blobEvent) => {
+                console.log(blobEvent.data)
+            }
+            record.start()
+            // record.ondataavailable = function (data) {
+            //     console.log('开始录制')
+            //     console.log(data)
+            // }
+            // .then(function (stream) {
+            //     video.srcObject = stream;
+            //     console.log(stream)
+            //     const record = new MediaRecorder(stream);
+            //     console.log(record)
+            //     console.log(123)
+            //     record.mimeType = VIDEO_FORMAT;
+            //     record.ondataavailable = function (data) {
+            //         console.log("# 产生录制数据...");
+            //         alert('商城')
+            //         console.log(data);
+            //         console.log("# ondataavailable, size = " + parseInt(data.size / 1024) + "KB");
+            //         chunk.push(data);
+            //     };
+            // })
+            // .catch(function (err) {
+            //     alert(err)
+            // });
+        }
+
+
+    </script>
+</body>
+
+</html>

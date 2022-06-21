@@ -2,54 +2,124 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>拍照2</title>
-    <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+
     <style>
-      .video-wrap {
-        border-radius: 500px;
-        overflow: hidden;
+      html,
+      body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        background: #f5f6fa;
+      }
+
+      .camera-wrap {
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 150px;
+        position: relative;
+      }
+
+      .video {
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      /* .canvas {
+            width: 100%;
+            display: none;
+        } */
+      .tip {
+        font-size: 16px;
+        color: black;
+        text-align: center;
       }
     </style>
   </head>
 
   <body>
-    <br />
-    <div class="video-wrap">
-      <video
-        id="v"
-        style="width: 640px; height: 480px"
-        playsinline
-        autoplay
-      ></video>
+    <div class="camera-wrap">
+      <!-- autoplay playsinline -->
+      <video class="video" autoplay playsinline></video>
+      <!-- <canvas class="canvas"></canvas> -->
+      <img
+        src="https://image.s2bdiy.com/1200/mkFeiGp2HX1655438035835_1200.png"
+        class="img"
+      />
     </div>
-
-    <canvas id="canvas" style="display: none"></canvas>
-    <span id="text">3</span>
-    <br />
+    <div class="tip">111111111111111111111111111</div>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
-      const vConsole = new VConsole();
-      var video = document.querySelector("video");
+      var vConsole = new window.VConsole();
 
-      navigator.mediaDevices
-        .getUserMedia({
-          video: {
-            width: 300,
-            height: 300,
-          },
-          audio: false,
-        })
-        .then(function (stream) {
-          video.srcObject = stream;
-          video.onloadedmetadata = function (e) {
-            // video.play();
-          };
-          /* 使用这个 stream stream */
-        })
-        .catch(function (err) {
-          //           console.log(456);
-          //           document.getElementById("text").innerHTML = err;
-          //           /* 处理 error */
-        });
+      // function playCanvas(srcvideo, ctx, width) {
+      //     //console.log("# playCanvas... ");
+      //     ctx.drawImage(srcvideo, 0, 0, width, width)
+      //     playId = requestAnimationFrame(() => {
+      //         playCanvas(srcvideo, ctx, width)
+      //     })
+      // }
+
+      window.onload = async () => {
+        const chunk = [];
+        const VIDEO_FORMAT = "video/webm";
+        const video = document.querySelector("video");
+        const tip = document.querySelector(".tip");
+        const tipList = ["眨眨眼", "张张嘴", "左摇头", "右摇头", "抬抬头"];
+        const setVideoCanvasHeight = (video) => {
+          const { width } = video.getBoundingClientRect();
+          video.style.height = width + "px";
+        };
+        const getRandomNum = () => {
+          return Math.floor(Math.random() * tipList.length);
+        };
+
+        const setRandomNum = () => {
+          const randomNum = getRandomNum();
+          tip.innerHTML = tipList[randomNum];
+        };
+        const uploadFile = (target) => {
+          const blob = new Blob([target], { type: "video/webm" });
+          console.log(blob, "blob");
+        };
+        setRandomNum();
+        setVideoCanvasHeight(video);
+        console.log(navigator.mediaDevices);
+        navigator.mediaDevices
+          .getUserMedia({
+            video: true,
+            audio: false,
+          })
+          .then((stream) => {
+            video.srcObject = stream;
+            const record = new MediaRecorder(stream);
+            record.start();
+            record.ondataavailable = function (blobEvent) {
+              console.log("结束录制");
+              console.log(blobEvent.data.size, "eventBlob");
+              uploadFile(blobEvent.data);
+            };
+
+            setTimeout(() => {
+              record.stop();
+            }, 10000);
+
+            setInterval(() => {
+              setRandomNum();
+            }, 2000);
+          });
+      };
     </script>
   </body>
 </html>
