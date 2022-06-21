@@ -121,7 +121,7 @@
             }, 2000);
           })
           .catch((err) => {
-            console.log(err);
+            console.log(err.__proto__);
             // console.log(err);
             console.log(Object.keys(err));
           });
